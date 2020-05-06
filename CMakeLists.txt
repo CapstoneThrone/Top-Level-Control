@@ -187,8 +187,10 @@ include_directories(
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
  install(FILES
-  launch/*
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+   launch/gmapping.launch
+   launch/hector_slam.launch
+   launch/rc.launch
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
  )
 
 #############
