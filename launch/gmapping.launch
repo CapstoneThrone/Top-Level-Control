@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode">
+        <param name="serial_port"         type="string" value="/dev/ttyUSB0"/>
+        <param name="frame_id"            type="string" value="laser"/>
+        <param name="inverted"            type="bool"   value="false"/>
+        <param name="angle_compensate"    type="bool"   value="true"/>
+        <param name="scan_mode"           type="string" value="Boost"/>
+    </node>
+    <node pkg="tf"
+        type="static_transform_publisher"
+        name="baseFrame_to_laser_broadcaster"
+        args="0 0 0 0 0 0 base_frame laser 10"
+        />
+    <node pkg="tf"
+        type="static_transform_publisher"
+        name="baseFrame_to_footies_broadcaster"
+        args="0 0 0 0 0 0 base_frame base_footprint 10"
+        />
+    <node pkg="amr-control" name="amr_odm" type="amr-odm.py"/>
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+        <param name="scan" type="string" value="scan"/>
+    </node>
+    <node name="motor_control" pkg="rosserial_arduino" type="serial_node.py" required="true" args="/dev/ttyACM1" />
+    <include file="$(find teleop_twist_joy)/launch/teleop.launch">
+        <arg name="joy_dev" value="/dev/input/js0"/>
+    </include>
+    <include file="$(find amr-lcd-control)/launch/main.launch"/>
+</launch

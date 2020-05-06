@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="motor_control" pkg="rosserial_arduino" type="serial_node.py" required="true" args="/dev/ttyACM1" />
+    <include file="$(find teleop_twist_joy)/launch/teleop.launch">
+        <arg name="joy_dev" value="/dev/input/js0"/>
+    </include>
+    <include file="$(find amr-lcd-control)/launch/main.launch"/>
+</launch
