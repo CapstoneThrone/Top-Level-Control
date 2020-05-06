@@ -5,4 +5,4 @@
         <arg name="joy_dev" value="/dev/input/js0"/>
     </include>
     <include file="$(find amr-lcd-control)/launch/main.launch"/>
-</launch
+</launch>
